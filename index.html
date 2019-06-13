@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Whack A Mole!</title>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+</head>
+
+<body>
+
+  <section id="left">
+    <h1>Whack-a-mole! <span class="score">0</span></h1>
+    <div class="row">
+      <input class="input" size="6" type="text" placeholder="ksywka" name="" id="nick" />
+      <h3 onClick="startGame()">Start!</h3>
+    </div>
+    <div id="game">
+      <div class="hole hole1">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole2">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole3">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole4">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole5">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole6">
+        <div class="mole"></div>
+      </div>
+    </div>
+  </section>
+  <section id="right">
+    <div id="leadboard">
+      <h3>Leadboard</h3>
+      <div id="scores">
+
+      </div>
+    </div>
+  </section>
+  <script>
+    const api = "http://clechay.eu:5555/"
+    const socket = io.connect(api);
+
+    const holes = document.querySelectorAll('.hole');
+    const scoreBoard = document.querySelector('.score');
+    const moles = document.querySelectorAll('.mole');
+    const leadboard = document.querySelector('#scores');
+    const scores = document.querySelector('#scores');
+    const nick = document.querySelector('#nick');
+
+  </script>
+</body>
+
+</html>

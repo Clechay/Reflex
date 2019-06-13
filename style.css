@@ -1,0 +1,164 @@
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+  background: #ffc600;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Amatic SC', cursive;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#left {
+  height: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#left h1 {
+  text-align: center;
+  font-size: 10rem;
+  line-height: 1;
+  margin: 1rem 0;
+}
+
+#left h3 {
+  text-align: center;
+  font-size: 7rem;
+  line-height: 1;
+  margin-bottom: 0;
+  margin-top: 1rem;
+}
+
+#left .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#left .input {
+  background: none;
+  border: solid 1px black;
+  border-radius: 3px;
+  padding: 3px;
+  line-height: 1;
+  font-size: 5rem;
+  /* width: 25rem; */
+  font-family: 'Amatic SC', cursive;
+  color: black;
+}
+
+#left .score {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0 3rem;
+  line-height: 1;
+  border-radius: 1rem;
+}
+
+.center-box {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+#game {
+  width: 600px;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+#game .hole {
+  flex: 1 0 33.33%;
+  overflow: hidden;
+  position: relative;
+}
+
+#game .hole:after {
+  display: block;
+  background: url(dirt.svg) bottom center no-repeat;
+  background-size: contain;
+  content: '';
+  width: 100%;
+  height: 70px;
+  position: absolute;
+  z-index: 2;
+  bottom: -30px;
+}
+
+#game .mole {
+  background: url('mole.svg') bottom center no-repeat;
+  background-size: 60%;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s;
+}
+
+#game .hole.up .mole {
+  top: 0;
+}
+
+#right {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 30%;
+}
+
+#leadboard {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 5rem;
+}
+
+#leadboard .row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#leadboard .row.lastest {
+  animation: 0.7s ease-in-out 0s 1 normal blink_red;
+}
+
+#leadboard .row>*:first-child {
+  width: 55%;
+}
+
+#leadboard .row>* {
+  overflow: hidden;
+}
+
+@keyframes blink_red {
+  from {
+    background-color: red
+  }
+
+  to {
+    background-color: inherit
+  }
+}
