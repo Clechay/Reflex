@@ -66,6 +66,12 @@
 
     function endGame(){
       timeUp = true;
+      const score = {
+        nick:nick.value.trim(),
+        points:points
+      }
+      console.log(score)
+      socket.emit("update",score);
     }
 
     function startGame(){
@@ -100,12 +106,28 @@
     function bonk(event){
       const mole = event.target;
       const hole = mole.parentNode;
+      if(timeUp) return;
       if(hole.classList.contains("up")) points++;
       scoreBoard.innerText = points; // zaktualizować licznik pkt
       hole.classList.remove("up")
     }
     moles.forEach(mole => mole.addEventListener("click",bonk))
-
+    function buildScore(score){
+      return `<div class="row ${score.lastest ? "lastest" : ""}">
+        <span class="nick">${score.nick}</span>
+        <span class="points">${score.points}</span>
+      </div>`;
+    }
+    function buildLeadboard(highscores){
+      return highscores.map( buildScore ).join("")
+    }
+    function updateLeadboard(highscores){
+      scores.innerHTML = buildLeadboard(highscores)
+    }
+    
+    fetch(api+"highscores")
+      .then(response => response.json())
+      .then(json=>updateLeadboard(json))
   </script>
 </body>
 
