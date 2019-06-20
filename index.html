@@ -124,7 +124,7 @@
     function updateLeadboard(highscores){
       scores.innerHTML = buildLeadboard(highscores)
     }
-    
+    socket.on("update",updateLeadboard)
     fetch(api+"highscores")
       .then(response => response.json())
       .then(json=>updateLeadboard(json))
