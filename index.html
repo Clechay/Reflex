@@ -15,7 +15,7 @@
     <h1>Whack-a-mole! <span class="score">0</span></h1>
     <div class="row">
       <input class="input" size="6" type="text" placeholder="ksywka" name="" id="nick" />
-      <h3 onClick="startGame()">Start!</h3>
+      <h3 id="start-button">Start!</h3>
     </div>
     <div id="game">
       <div class="hole hole1">
@@ -42,7 +42,10 @@
     <div id="leadboard">
       <h3>Leadboard</h3>
       <div id="scores">
-
+        <div class="row">
+          <span class="nick">dgdgfgdf</span>
+          <span class="points">11</span>
+        </div>
       </div>
     </div>
   </section>
@@ -56,6 +59,52 @@
     const leadboard = document.querySelector('#scores');
     const scores = document.querySelector('#scores');
     const nick = document.querySelector('#nick');
+
+    let points = 0;
+    let lastHole = null;
+    let timeUp = true;
+
+    function endGame(){
+      timeUp = true;
+    }
+
+    function startGame(){
+      if(!timeUp) return;
+      timeUp = false;
+      points = 0;
+      scoreBoard.innerText = points;
+      peep();
+      setTimeout(endGame,10000);
+    }
+    document.querySelector("#start-button").addEventListener("click",startGame)
+    
+    function randomTime(min,max){
+      return Math.round(Math.random() * (max - min) + min)
+    }
+    function randomHole(){
+      let hole = holes[randomTime(0,holes.length-1)];
+      while(hole === lastHole) hole = holes[randomTime(0,holes.length-1)]
+      lastHole = hole;
+      return hole;
+    }
+    function peep(){
+      if(timeUp) return;
+      const time = randomTime(400,1100); // jak długo stworek będzie wystawać
+      const hole = randomHole(); // z której nory
+      hole.classList.add("up")
+      setTimeout(()=>{
+        hole.classList.remove("up")
+        peep()
+      },time)
+    }
+    function bonk(event){
+      const mole = event.target;
+      const hole = mole.parentNode;
+      if(hole.classList.contains("up")) points++;
+      scoreBoard.innerText = points; // zaktualizować licznik pkt
+      hole.classList.remove("up")
+    }
+    moles.forEach(mole => mole.addEventListener("click",bonk))
 
   </script>
 </body>
